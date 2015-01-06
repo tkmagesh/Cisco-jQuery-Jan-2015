@@ -17,6 +17,10 @@
 
 		function init(){
 			$(".number").click(onNumberButtonClick);
+			$(document).on("keypress", function(jQEvt){
+				var selector = ".number[value=" + String.fromCharCode(jQEvt.keyCode) + "]";
+				$(selector).click();
+			});
 		}
 		function onNumberButtonClick(){
 			var $this = $(this);
@@ -27,6 +31,7 @@
 			}
 			$result.html($result.html() + $this.val());
 		}
+
 		$(init);
 	</script>
 </head>
