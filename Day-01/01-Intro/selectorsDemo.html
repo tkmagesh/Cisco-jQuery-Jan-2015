@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Selectors Demo</title>
+	<style>
+	.highlight {
+		border : 2px solid red;
+	}
+	label{
+		display : block;
+	}
+	</style>
+	<script src="jquery-2.1.3.js"></script>
+	<script>
+	function highlight(jQObject){
+		jQObject.addClass("highlight");
+	}
+	function cls(){
+		$("*").removeClass("highlight");
+	}
+	</script>
+</head>
+<body>
+	<div>
+		<label for="">First Name :</label>
+		<input type="text" name="" id="txtFirstName" class="nameBox">
+	</div>
+	<div>
+		<label for="">Last Name :</label>
+		<input type="text" name="" id="txtLastName" class="nameBox">
+	</div>
+	<div>
+		<label for="">Age :</label>
+		<input type="text" name="" id="txtAge" class="numberBox">
+	</div>
+	<div>
+		<input type="button" value="Save" id="btnSave">
+		<input type="reset" value="Reset" id="btnReset">
+	</div>
+</body>
+</html>
