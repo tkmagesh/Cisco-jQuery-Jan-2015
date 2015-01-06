@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task Manager</title>
+	<style>
+	h1{
+		border-top: 2px solid blue;
+		border-bottom: 2px solid blue;
+		padding: 10px;
+		background-color: lightblue;
+	}
+	.completed {
+		color : red;
+		text-decoration: line-through;
+		font-style: italic;
+		font-weight: bold;
+	}
+	li{
+		cursor: pointer;
+	}
+	section{
+		margin-bottom: 20px;
+	}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Task Manager</h1>	
+	</header>
+	<section>
+		<label for="">Task :</label>
+		<input type="text" name="" id="txtTask">
+		<input type="button" value="Add Task" id="btnAddTask">
+		<input type="button" value="Remove Completed" id="btnRemoveCompleted">
+		<h3>Tasks</h3>
+		<ol>
+			<li>Task - 1</li>
+			<li class="completed">Task - 2</li>
+			<li>Task - 3</li>
+		</ol>
+		
+	</section>
+	<footer>
+		<div id="divMessage">[Messages will be displayed here]</div>
+	</footer>
+	
+</body>
+</html>
