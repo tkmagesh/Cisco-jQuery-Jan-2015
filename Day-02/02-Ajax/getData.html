@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax - Get HTML</title>
+	<script src="jquery-2.1.3.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#btnGetProducts").click(function(){
+				$.get("products.json", function(response){
+					var html = ["<table><tr><th>Id</th><th>Name</th><th>Cost</th><th>Units</th></tr>"];
+					$.each(response.products, function(index, product){
+						html.push("<tr>");
+						html.push("<td>" + product.id + "</td>");
+						html.push("<td>" + product.name + "</td>");
+						html.push("<td>" + product.cost + "</td>");
+						html.push("<td>" + product.units + "</td>");
+						html.push("</tr>");
+					});
+					html.push("</table>");
+					$(".content").append(html.join(""));
+				}, "json");
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="button" value="Get Products" id="btnGetProducts">
+	<div class="content">
+		
+	</div>
+</body>
+</html>

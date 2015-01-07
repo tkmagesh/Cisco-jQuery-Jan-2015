@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax - Get HTML</title>
+	<script src="jquery-2.1.3.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#btnGetHTML").click(function(){
+				$.get("fragment.html", function(response){
+					$(".content").html(response);
+				}, "html");
+			});
+
+			$("#btnLoadHTML").click(function(){
+				$(".content").load("fragment.html");
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="button" value="Get HTML" id="btnGetHTML">
+	<input type="button" value="Load HTML" id="btnLoadHTML">
+	<div class="content">
+		
+	</div>
+</body>
+</html>
