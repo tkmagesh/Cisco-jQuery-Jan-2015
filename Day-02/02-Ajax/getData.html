@@ -7,7 +7,19 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#btnGetProducts").click(function(){
-				$.get("products.json", function(response){
+				/*$.get("products.json", processResponse , "json");*/
+
+				$.ajax({
+					method : "post",
+					data : 
+					url : "products.json",
+					dataType : "json",
+					contentType : "application/json",
+					success : processResponse
+				});
+			});
+
+			function processResponse(response){
 					var html = ["<table><tr><th>Id</th><th>Name</th><th>Cost</th><th>Units</th></tr>"];
 					$.each(response.products, function(index, product){
 						html.push("<tr>");
@@ -19,8 +31,7 @@
 					});
 					html.push("</table>");
 					$(".content").append(html.join(""));
-				}, "json");
-			});
+				}
 		});
 	</script>
 </head>
