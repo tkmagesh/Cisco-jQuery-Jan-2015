@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+	.hint{
+		color : gray;
+		font-style: italic;
+	}
+	</style>
+	<script src="jquery-2.1.3.js"></script>
+	<script src="jquery.hint.js"></script>
+	<script>
+	
+	$(function(){
+		$(":text[hintText]").hint();
+
+	});
+	</script>
+</head>
+<body>
+	<input type="text" id="txtName" hintText="Enter the name">
+	<input type="text" hintText="Enter the age">
+</body>
+</html>
