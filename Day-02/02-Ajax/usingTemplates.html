@@ -7,7 +7,25 @@
 	<script src="Handlebars-v2.0.0.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			var templateFn = Handlebars.compile($("#productsTemplate").html());
+			var productsListTemplateFn = Handlebars.compile($("#productsTemplate").html());
+			var cartTemplateFn = Handlebars.compile($("#cartTemplate").html());
+			var productList = [];
+			var cart = {
+				lineItems : [],
+				addLineItem : function(name, units, cost){
+					this.lineItems.push({name : name, units : units, cost :cost});
+					this.calculate();
+				},
+				calculate : function(){
+					var result = 0;
+					for(var i=0;i<this.lineItems.length;i++){
+						this.lineItems[i].value = this.lineItems[i].units * this.lineItems[i].cost;
+						result += this.lineItems[i].value;
+					}
+					this.value = result;
+				},
+				value : 0
+			}
 			$("#btnGetProducts").click(function(){
 				/*$.get("products.json", processResponse , "json");*/
 
@@ -19,9 +37,22 @@
 					success : processResponse
 				});
 			});
+			
+			$(".content").on("click", ".btnAdd", function(){
+				var $row = $(this).parents("tr");
+				var productId = parseInt($row.attr("productId"));
+				var units = parseInt($row.find(".txtUnits").val());
+				var product = productList.filter(function(p){
+					return p.id === productId
+				})[0];
+				cart.addLineItem(product.name, units, product.cost);
+				$(".cart").html(cartTemplateFn(cart));
+				
+			});
 
 			function processResponse(response){
-				$(".content").html(templateFn(response));		
+				productList = response.products;
+				$(".content").html(productsListTemplateFn(response));		
 			}
 		});
 	</script>
@@ -37,15 +68,41 @@
 			</thead>
 			<tbody>
 				{{#each products}}
-				<tr>
+				<tr productId="{{id}}">
 					<td>{{id}}</td>
 					<td>{{name}}</td>
 					<td>{{cost}}</td>
 					<td>{{units}}</td>
+					<td><input type="text" class="txtUnits"></td>
+					<td><input type="button" value=" Add " class="btnAdd"></td>
 				</tr>
 				{{/each}}			
 			</tbody>
 		</table>
+	</script>
+	<script type="text/template" id="cartTemplate">
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Units</th>
+				<th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each lineItems}}
+			<tr>
+				<td>{{name}}</td>
+				<td>{{units}}</td>
+				<td>{{value}}</td>
+			</tr>
+			{{/each}}
+			<tr>
+				<td colspan="2"></td>
+				<td>{{value}}</td>
+			</tr>
+		</tbody>
+	</table>
 	</script>
 </head>
 <body>
@@ -53,6 +110,9 @@
 	<div class="content">
 		
 	</div>
-	
+	<h3>Cart</h3>
+	<div class="cart">
+		
+	</div>
 </body>
 </html>
