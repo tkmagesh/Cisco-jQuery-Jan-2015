@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax - Get HTML</title>
+	<script src="jquery-2.1.3.js"></script>
+	<script src="Handlebars-v2.0.0.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var templateFn = Handlebars.compile($("#productsTemplate").html());
+			$("#btnGetProducts").click(function(){
+				/*$.get("products.json", processResponse , "json");*/
+
+				$.ajax({
+					method : "get",
+					url : "products.json",
+					dataType : "json",
+					contentType : "application/json",
+					success : processResponse
+				});
+			});
+
+			function processResponse(response){
+				$(".content").html(templateFn(response));		
+			}
+		});
+	</script>
+	<script type="text/template" id="productsTemplate">
+		<table>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Cost</th>
+					<th>Units</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each products}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{name}}</td>
+					<td>{{cost}}</td>
+					<td>{{units}}</td>
+				</tr>
+				{{/each}}			
+			</tbody>
+		</table>
+	</script>
+</head>
+<body>
+	<input type="button" value="Get Products" id="btnGetProducts">
+	<div class="content">
+		
+	</div>
+	
+</body>
+</html>
